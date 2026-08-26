@@ -81,11 +81,11 @@ def main():
                 if b_book.get_status():
                     b_book.set_status(False)
                     book_proc.append((b_isbn, '대여', dt.now()))
-                    print(f'\n[V]「{title}」도서 대여 완료\n')
+                    print(f'\n[V]「{b_book.get_title()}」도서 대여 완료\n')
                 else:
                     b_book.set_status(True)
                     book_proc.append((b_isbn, '반납', dt.now()))
-                    print(f'\n[V]「{title}」도서 반납 완료\n')
+                    print(f'\n[V]「{b_book.get_title()}」도서 반납 완료\n')
 
         elif select == 5:
             # print('\n[도서 관리 시스템 > 5. 대여/반납 통계 조회]\n')

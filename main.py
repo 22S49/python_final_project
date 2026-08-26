@@ -76,10 +76,10 @@ def main():
 
                 if b_book.get_status():
                     b_book.set_status(False)
-                    print(f'\n[V]「{title}」도서 대여 완료\n')
+                    print(f'\n[V]「{b_book.get_title()}」도서 대여 완료\n')
                 else:
                     b_book.set_status(True)
-                    print(f'\n[V]「{title}」도서 반납 완료\n')
+                    print(f'\n[V]「{b_book.get_title()}」도서 반납 완료\n')
 
         elif select == 5:
             print('\n[프로그램을 종료합니다.]\n')
