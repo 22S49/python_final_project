@@ -1,10 +1,13 @@
 from models.specialized_books import PaperBook, EBook
 from utils.helpers import get_int, get_string
+from datetime import datetime as dt
+# from collections import Counter
 
 def main():
 
     book_info = {}
     book_isbn = set()
+    book_proc = []
 
     while True:
         print('======= 도서 관리 시스템 =======')
@@ -12,7 +15,8 @@ def main():
         print(' 2. 전체 도서 조회')
         print(' 3. 도서 검색')
         print(' 4. 대여/반납 처리')
-        print(' 5. 종료')
+        print(' 5. 대여/반납 통계 조회')
+        print(' 6. 종료')
         print('================================')
         select = get_int('*수행할 작업메뉴의 번호를 입력하세요.: ')
 
@@ -24,7 +28,7 @@ def main():
             isbn = get_int('*ISBN : ')
 
             if isbn in book_isbn:
-                print(f'\n[!] 이미 등록된 ISBN 정보입니다.\n')
+                print(f'\n[이미 등록된 ISBN 정보입니다.]\n')
                 continue
 
             book_type = get_int('*출판형식을 선택하세요(1: 종이책, 2: 전자책). : ')
@@ -76,17 +80,25 @@ def main():
 
                 if b_book.get_status():
                     b_book.set_status(False)
+                    book_proc.append((b_isbn, '대여', dt.now()))
                     print(f'\n[V]「{title}」도서 대여 완료\n')
                 else:
                     b_book.set_status(True)
+                    book_proc.append((b_isbn, '반납', dt.now()))
                     print(f'\n[V]「{title}」도서 반납 완료\n')
 
         elif select == 5:
+            # print('\n[도서 관리 시스템 > 5. 대여/반납 통계 조회]\n')
+            print('log')
+            print(book_proc)
+
+
+        elif select == 6:
             print('\n[프로그램을 종료합니다.]\n')
             break
 
         else:
-            print('\n[!] 해당하는 작업메뉴의 번호만 입력하세요.\n')
+            print('\n[해당하는 작업메뉴의 번호만 입력하세요.]\n')
 
 if __name__ == '__main__':
     main()
