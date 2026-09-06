@@ -4,7 +4,7 @@ class Book:
         self.__title = title
         self.__author = author
         self.__isbn = isbn
-        self.__status = False
+        self.__status = True
 
     def get_title(self):
         return self.__title

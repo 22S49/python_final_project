@@ -1,10 +1,13 @@
 from models.specialized_books import PaperBook, EBook
 from utils.helpers import get_int, get_string
+from utils.statistics import stats, report
+from datetime import datetime
 
 def main():
 
     book_info = {}
     book_isbn = set()
+    b_book_log = []
 
     while True:
         print('======= 도서 관리 시스템 =======')
@@ -12,7 +15,8 @@ def main():
         print(' 2. 전체 도서 조회')
         print(' 3. 도서 검색')
         print(' 4. 대여/반납 처리')
-        print(' 5. 종료')
+        print(' 5. 대여/반납 통계')
+        print(' 6. 종료')
         print('================================')
         select = get_int('*수행할 작업메뉴의 번호를 입력하세요.: ')
 
@@ -69,19 +73,27 @@ def main():
             print('\n[도서 관리 시스템 > 4. 대여/반납 처리]\n')
             b_isbn = get_int('*대여/반납 처리할 도서의 ISBN을 입력하세요.: ')
 
-            if b_isbn not in book_info:
-                print('\n[!] 해당 도서를 찾을 수 없습니다.\n')
-            else:
+            try:
                 b_book = book_info[b_isbn]
+            except KeyError:
+                print('\n[!] 해당 도서를 찾을 수 없습니다.\n')
+                continue
 
-                if b_book.get_status():
-                    b_book.set_status(False)
-                    print(f'\n[V]「{b_book.get_title()}」도서 대여 완료\n')
-                else:
-                    b_book.set_status(True)
-                    print(f'\n[V]「{b_book.get_title()}」도서 반납 완료\n')
+            if b_book.get_status(): # 대여 가능 상태라면
+                b_book.set_status(False) # 대여 불가 상태로 변경하고
+                b_book_log.append((b_isbn, '대여', datetime.now())) # 로그 기록
+                print(f'\n[V]「{b_book.get_title()}」도서 대여 완료\n')
+            else:
+                b_book.set_status(True) # 대여 불가 상태라면 대여 가능 상태로 변경하고
+                b_book_log.append((b_isbn, '반납', datetime.now())) # 로그 기록
+                print(f'\n[V]「{b_book.get_title()}」도서 반납 완료\n')
 
         elif select == 5:
+            print('\n[도서 관리 시스템 > 5. 대여/반납 통계]\n')
+            stats(b_book_log)
+            report(b_book_log, book_info)
+
+        elif select == 6:
             print('\n[프로그램을 종료합니다.]\n')
             break
 
