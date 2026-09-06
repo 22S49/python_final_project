@@ -1,7 +1,7 @@
 [project]
 name = "python-final-project"
 version = "0.1.0"
-description = "Add your description here"
+description = "Simple Book Rental Management Console Program"
 readme = "README.md"
 authors = [
     { name = "22S49", email = "denkend357@gmail.com" }
