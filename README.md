@@ -8,7 +8,8 @@
 uv run main.py
 ```
 
-`uv`가 `pyproject.toml`을 보고 알아서 가상환경을 만들고 실행합니다. 별도 의존성은 없습니다(표준 라이브러리 `datetime`만 사용).
+- `uv`가 `pyproject.toml`을 보고 알아서 가상환경을 만들고 실행합니다. 별도 의존성은 없습니다(표준 라이브러리 `datetime`만 사용).  
+- 편의상 루트에 소스 코드(models, utils 폴더 및 main.py 파일)을 두었으므로 `uv run python-final-project` 실행은 제한합니다. 
 
 ## 프로젝트 구조
 
